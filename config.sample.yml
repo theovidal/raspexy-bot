@@ -1,0 +1,4 @@
+bot:
+  token: Your bot's token
+pins:
+  light: 17
