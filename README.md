@@ -1,6 +1,6 @@
 # RaspexyBot
 
-A personal bot to manage my Raspberry Pi.
+A Telegram bot to manage a Raspberry Pi.
 
 ## 📜 Credits
 
