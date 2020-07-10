@@ -9,7 +9,8 @@ module Raspexy
     end
 
     def call(bot, message, arguments)
-      @block.call(bot, message, arguments)
+      context = Context.new(bot, message)
+      @block.call(context, arguments)
     end
   end
 end

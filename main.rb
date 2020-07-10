@@ -3,6 +3,7 @@ require 'psych'
 require 'time'
 
 require_relative 'lib/command_container'
+require_relative 'lib/context'
 require_relative 'lib/command'
 require_relative 'lib/bot'
 

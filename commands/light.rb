@@ -2,16 +2,16 @@ module Raspexy
   module Commands
     extend CommandContainer
 
-    command :light, 'Contrôler la lumière ambiante' do |bot, message, args|
+    command :light, 'Contrôler la lumière ambiante' do |context, args|
       case args[0]
       when 'on'
-        `gpio export #{bot.config['pins']['light']} high`
-        bot.api.send_message(chat_id: message.chat.id, parse_mode: 'Markdown', text: "💡 Lumière allumée.\n_Et la lumière fut!_")
+        `gpio export #{context.bot.config['pins']['light']} high`
+        context.reply("💡 Lumière allumée.\n_Et la lumière fut!_", markdown: true)
       when 'off'
-        `gpio export #{bot.config['pins']['light']} low`
-        bot.api.send_message(chat_id: message.chat.id, parse_mode: 'Markdown', text: "🌑 Lumière éteinte.\n_Ça va faire tout noir!_")
+        `gpio export #{context.bot.config['pins']['light']} low`
+        context.reply("🌑 Lumière éteinte.\n_Ça va faire tout noir!_", markdown: true)
       else
-        bot.api.send_message(chat_id: message.chat.id, text: '❌ Valeur inconnue.')
+        context.reply('❌ Valeur inconnue.')
       end
     end
   end

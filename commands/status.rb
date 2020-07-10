@@ -2,7 +2,7 @@ module Raspexy
   module Commands
     extend CommandContainer
 
-    command :status, 'Obtenir le statut du Raspberry Pi' do |bot, message, args|
+    command :status, 'Obtenir le statut du Raspberry Pi' do |context, args|
       user = (`whoami`).strip
       uptime = (`uptime`).split(' ')[2].sub(/:/, 'h')[0...-1]
       now = Time.now.strftime("le %d/%m/%Y à %Hh%M")
@@ -15,7 +15,7 @@ module Raspexy
       sd = %x{df -h /}.lines.to_a[1].split[1,4]
       usb = %x{df -h /dev/sda1}.lines.to_a[1].split[1,4]
 
-      bot.api.send_message(chat_id: message.chat.id, parse_mode: 'Markdown', text:
+      context.reply(
         "*Informations générales*\n" \
         "👤 Utilisateur : #{user}\n\n" \
         "*Statut #{now}*\n" \
@@ -25,7 +25,9 @@ module Raspexy
         "📼 Utilisation de la mémoire RAM : #{mem_usage.floor(2)}%\n" \
         "💾 Utilisation du stockage :\n" \
         "  • Carte SD : #{sd[3]} (#{sd[1]}o utilisés sur #{sd[0]}o)\n" \
-        "  • Clé USB : #{usb[3]} (#{usb[1]}o utilisés sur #{usb[0]}o)"
+        "  • Clé USB : #{usb[3]} (#{usb[1]}o utilisés sur #{usb[0]}o)",
+        
+        markdown: true
       )
     end
   end
