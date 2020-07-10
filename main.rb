@@ -24,9 +24,16 @@ Dir["#{base}/*.rb"].each do |path|
 end
 
 Telegram::Bot::Client.run(config['bot']['token']) do |bot|
+  puts 'Telegram bot running.'
+
   client = Raspexy::Bot.new(bot, config)
   bot.listen do |message|
-    next unless message.text[0] == '/'
-    client.run_command(message)
+    case message
+    when Telegram::Bot::Types::Message
+      next unless message.text[0] == '/'
+      client.run_command(message)
+    when Telegram::Bot::Types::CallbackQuery
+      client.run_command(message, true)
+    end
   end
 end

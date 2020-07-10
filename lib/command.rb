@@ -8,8 +8,8 @@ module Raspexy
       @block = block
     end
 
-    def call(bot, message, arguments)
-      context = Context.new(bot, message)
+    def call(bot, message, arguments, callback)
+      context = callback ? Context.new(bot, message.message, callback: message.id) : Context.new(bot, message)
       @block.call(context, arguments)
     end
   end
